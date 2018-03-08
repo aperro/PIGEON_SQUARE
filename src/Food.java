@@ -3,7 +3,7 @@ import java.awt.Point;
 public class Food {
 
 	private float freshness;
-	private Boolean isFrech = true;
+	private Boolean isFresh = true;
 	private long startTime;
 
 	private Point position;
@@ -19,15 +19,15 @@ public class Food {
 		long currentTime = System.currentTimeMillis();
 
 		if(currentTime - startTime > freshness*1000) {
-			isFrech = false;
+			isFresh = false;
 		}else {
 			//isFrech = true;
 		}
 	}
 
 
-	public void setFresh(Boolean isFrech){ this.isFrech = isFrech; }
+	public void setFresh(Boolean isFrech){ this.isFresh = isFrech; }
 
-	public Boolean getFresh(){ return this.isFrech; }
+	public Boolean getFresh(){ return this.isFresh; }
 
 }

@@ -22,8 +22,12 @@ public class Interface extends JFrame implements MouseListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private final int width = 1280;
+	private final int heigth = 720;
+	
+	private BufferedImage foodImage;
 
-	private JLabel label;
+	private JLabel backgroundImage;
 	private JLayeredPane lp = new JLayeredPane();
 
 	public List<Food> food = new ArrayList<Food>();
@@ -38,45 +42,48 @@ public class Interface extends JFrame implements MouseListener {
 		 */
 		String path = "C:\\Users\\adipe\\Documents\\GitHub\\PIGEON_SQUARE\\src\\grass.jpg";
 		File file = new File(path);
-		BufferedImage image = null;
+		BufferedImage bg = null;
 		try {
-			image = ImageIO.read(file);
+			bg = ImageIO.read(file);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		label = new JLabel(new ImageIcon(image));
-		label.setBorder(BorderFactory.createTitledBorder("label"));
-		label.setBounds(0, 0, 1280, 720);
+		backgroundImage = new JLabel(new ImageIcon(bg));
+		backgroundImage.setBorder(BorderFactory.createTitledBorder("label"));
+		backgroundImage.setBounds(0, 0, width, heigth);
 		
-		lp.add(label, new Integer(1));
+		lp.add(backgroundImage, new Integer(1));
+		
+		String pathFood = "C:\\Users\\adipe\\Documents\\GitHub\\PIGEON_SQUARE\\src\\Nourriture.png";
+		File fileFood = new File(pathFood);
+		foodImage = null;
+		try {
+			foodImage = ImageIO.read(fileFood);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		int x = e.getX();
-		int y = e.getY();
+		int x = e.getX()-9;
+		int y = e.getY()-38;
+		if (x < 0) x += 9;
+		if (y < 0) y += 38;
 		System.out.println("Mouse Clicked at X: " + x + " - Y: " + y);
 
-		String path = "C:\\Users\\adipe\\Documents\\GitHub\\PIGEON_SQUARE\\src\\Nourriture.png";
-		File file = new File(path);
-		BufferedImage image = null;
-		try {
-			image = ImageIO.read(file);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		
 		//////////////////////////////////////////////
-		JLabel label2 = new JLabel(new ImageIcon(image));
-		//label2.setBorder(BorderFactory.createTitledBorder("label"));
-		label2.setBounds(x-16, y-12, 32, 24);
+		System.out.println("Mouse Clicked at X: " + x + " - Y: " + y);
+		JLabel foodLabel = new JLabel(new ImageIcon(foodImage));
+		foodLabel.setBounds(x-16, y-12, 32, 24);
 
 		food.add(new Food((float) (10 + Math.random() * (15 - 10)), new Point(x,y)));
 
-		lp.add(label2, new Integer(2));
+		lp.add(foodLabel, new Integer(2));
 	}
 
 	@Override
