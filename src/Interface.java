@@ -27,8 +27,9 @@ public class Interface extends JFrame implements MouseListener {
 	private static final long serialVersionUID = 1L;
 	private final int width = 1280;
 	private final int heigth = 720;
-	
+
 	private BufferedImage foodImage;
+	private BufferedImage staleFoodImage;
 	private BufferedImage pigeonImage;
 	private BufferedImage bg;
 
@@ -70,11 +71,21 @@ public class Interface extends JFrame implements MouseListener {
 		}
 		
 		// get food image
-		String pathFood = "C:\\Users\\adipe\\Documents\\GitHub\\PIGEON_SQUARE\\src\\Nourriture.png";
+		String pathFood = "C:\\Users\\adipe\\Documents\\GitHub\\PIGEON_SQUARE\\src\\FreshFood.png";
 		File fileFood = new File(pathFood);
 		foodImage = null;
 		try {
 			foodImage = ImageIO.read(fileFood);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		String pathStaleFood = "C:\\Users\\adipe\\Documents\\GitHub\\PIGEON_SQUARE\\src\\StaleFood.png";
+		File fileStaleFood = new File(pathStaleFood);
+		staleFoodImage = null;
+		try {
+			staleFoodImage = ImageIO.read(fileStaleFood);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -122,8 +133,14 @@ public class Interface extends JFrame implements MouseListener {
 		// Show the list of food on the layer
 		for(int i =0; i<gameManager_.getFoodList().size(); i++) {
 			Food foodToShow = gameManager_.getFoodList().get(i);
-			
-			JLabel foodLabel = new JLabel(new ImageIcon(foodImage));
+			JLabel foodLabel;
+			if (foodToShow.checkFreshness())
+				{
+					foodLabel = new JLabel(new ImageIcon(foodImage));
+				} else
+				{
+					foodLabel = new JLabel(new ImageIcon(staleFoodImage));
+				}
 			
 			foodLabel.setBounds(foodToShow.getPosition().x-16, foodToShow.getPosition().y-12, 32, 24);
 
