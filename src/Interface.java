@@ -42,8 +42,7 @@ public class Interface extends JFrame implements MouseListener {
 		// CREATE THE GAME MANAGER (will manage all the calculations)
 		
 		gameManager_ = new GameManager();
-		gameManager_.CreatePigeonList(4);
-				
+		gameManager_.CreatePigeonList(5);
 		
 		// CREATE THE WINDOW
 		
@@ -91,16 +90,17 @@ public class Interface extends JFrame implements MouseListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-
 		Show();
-		
+	}
+	
+	public void ActualizePigeonState() {
+		gameManager_.DetectFoodAndMovePigeon();
 	}
 	
 	// Show all food
 	public void Show()
 	{
-		
+		lp.removeAll();//or remove(JComponent)
 		/*
 		 *  Background
 		 */
@@ -129,24 +129,19 @@ public class Interface extends JFrame implements MouseListener {
 
 			lp.add(foodLabel, new Integer(2));
 		}
+		lp.repaint();
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-
 		int x = e.getX();
 		int y = e.getY();
 		gameManager_.AddFood(x, y);
-		
-
-		//
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -181,6 +176,7 @@ public class Interface extends JFrame implements MouseListener {
 				// TODO Auto-generated method stub
 
 		    	frame.Show();
+		    	frame.ActualizePigeonState();
 			}
 		});
 		t.start();

@@ -8,6 +8,8 @@ public class Pigeon {
 	private Point position;
 	private int vitesseDeplacement = 5;
 	
+	private Food closestFood = null;
+	
 	public Pigeon() {
 		this.setPosition(new Point((int)(50 + Math.random() * (1230 - 50)), (int)(50 + Math.random() * (670 - 50))));
 	}
@@ -40,6 +42,14 @@ public class Pigeon {
 
 	public void setPosition(Point position) {
 		this.position = position;
+	}
+
+	public Food getClosestFood() {
+		return closestFood;
+	}
+
+	public void setClosestFood(Food closestFood) {
+		this.closestFood = closestFood;
 	}
 
 }
