@@ -2,16 +2,16 @@ import java.awt.Point;
 
 public class Pigeon {
 	
-	private Boolean isAwake;
-	private Boolean isAffraid;
+	protected Boolean isAwake;
+	protected Boolean isAffraid;
 	public GameManager gameManager;
 	
-	private RushToFood rush;
+	protected RushToFood rush;
 	
-	private Point position;
-	private int speed = 60;
+	protected Point position;
+	protected int speed = 60;
 	
-	private Food closestFood = null;
+	protected Food closestFood = null;
 	
 	public Pigeon() {
 		super();

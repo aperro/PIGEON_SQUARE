@@ -31,7 +31,9 @@ public class Interface extends JFrame implements MouseListener {
 
 	private BufferedImage foodImage;
 	private BufferedImage staleFoodImage;
-	private BufferedImage pigeonImage;
+	private BufferedImage ramierImage;
+	private BufferedImage colombinImage;
+	private BufferedImage bisetImage;
 	private BufferedImage bg;
 
 	private JLabel backgroundImage;
@@ -44,7 +46,7 @@ public class Interface extends JFrame implements MouseListener {
 		// CREATE THE GAME MANAGER (will manage all the calculations)
 		
 		gameManager_ = new GameManager();
-		gameManager_.CreatePigeonList(5);
+		gameManager_.CreatePigeonList(2,3,4);
 		
 		// CREATE THE WINDOW
 		
@@ -62,7 +64,9 @@ public class Interface extends JFrame implements MouseListener {
 		URL urlFreshFood = getClass().getResource("FreshFood.png");
 		URL urlStaleFood = getClass().getResource("StaleFood.png");
 		URL urlGrass = getClass().getResource("Grass.jpg");
-		URL urlPigeon = getClass().getResource("Pigeon.png");
+		URL urlRamier = getClass().getResource("Ramier.png");
+		URL urlColombin = getClass().getResource("Colombin.png");
+		URL urlBiset = getClass().getResource("Biset.png");
 		
 		/*
 		 * Initialize image for bg
@@ -96,15 +100,32 @@ public class Interface extends JFrame implements MouseListener {
 			e1.printStackTrace();
 		}
 		
-		// get pigeon image
-		File filePigeon = new File(urlPigeon.getPath());
-		pigeonImage = null;
+		// get pigeon images
+		File fileRamier = new File(urlRamier.getPath());
+		ramierImage = null;
 		try {
-			pigeonImage = ImageIO.read(filePigeon);
+			ramierImage = ImageIO.read(fileRamier);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		File fileColombin = new File(urlColombin.getPath());
+		colombinImage = null;
+		try {
+			colombinImage = ImageIO.read(fileColombin);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		File fileBiset = new File(urlBiset.getPath());
+		bisetImage = null;
+		try {
+			bisetImage = ImageIO.read(fileBiset);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		Show();
 	}
 	
@@ -120,15 +141,26 @@ public class Interface extends JFrame implements MouseListener {
 		 *  Background
 		 */
 		backgroundImage = new JLabel(new ImageIcon(bg));
-		backgroundImage.setBorder(BorderFactory.createTitledBorder("label"));
 		backgroundImage.setBounds(0, 0, width, heigth);
 		lp.add(backgroundImage, new Integer(1));
 		
 		// Show the list of pigeon on the layer
 		for(int i =0; i<gameManager_.getPigeonList().size(); i++) {
 			Pigeon pigeonToShow = gameManager_.getPigeonList().get(i);
-			
-			JLabel pigeonLabel = new JLabel(new ImageIcon(pigeonImage));
+			String type = pigeonToShow.getClass().toString();
+			JLabel pigeonLabel;
+			switch (type)
+			{
+			case "class Ramier":
+				pigeonLabel = new JLabel(new ImageIcon(ramierImage));
+				break;
+			case "class Colombin":
+				pigeonLabel = new JLabel(new ImageIcon(colombinImage));
+				break;
+			default:
+				pigeonLabel = new JLabel(new ImageIcon(bisetImage));
+				break;
+			}
 			
 			pigeonLabel.setBounds(pigeonToShow.getPosition().x-50, pigeonToShow.getPosition().y-50, 100, 100);
 			lp.add(pigeonLabel, new Integer(2));

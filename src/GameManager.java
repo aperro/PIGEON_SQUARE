@@ -8,11 +8,23 @@ public class GameManager {
 	private List<Food> foodList = new ArrayList<Food>();
 	private List<Pigeon> pigeonList = new ArrayList<Pigeon>();
 
-	public void CreatePigeonList (int size)
+	public void CreatePigeonList (int ramier, int colombin, int biset)
 	{
-		for(int i =0; i<size; i++) {
+		for(int i = 0; i<ramier; i++) {
 
-			Pigeon p = new Pigeon();
+			Ramier p = new Ramier();
+			p.gameManager = this;
+			pigeonList.add(p);
+		}
+		for(int i = 0; i<colombin; i++) {
+
+			Colombin p = new Colombin();
+			p.gameManager = this;
+			pigeonList.add(p);
+		}
+		for(int i = 0; i<biset; i++) {
+
+			Biset p = new Biset();
 			p.gameManager = this;
 			pigeonList.add(p);
 		}
@@ -53,6 +65,7 @@ public class GameManager {
 		if (foodEaten.checkFreshness())
 		{
 			boolean iseaten = foodList.remove(foodEaten);
+			System.out.println("Pigeon a mangé la nourriture : " + iseaten);
 		} else
 		{
 			System.out.println("Food not fresh anymore");
