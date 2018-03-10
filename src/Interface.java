@@ -8,6 +8,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,22 +58,26 @@ public class Interface extends JFrame implements MouseListener {
 		addMouseListener(this);
 		add(lp);
 		
+		// Get the path for pictures
+		URL urlFreshFood = getClass().getResource("FreshFood.png");
+		URL urlStaleFood = getClass().getResource("StaleFood.png");
+		URL urlGrass = getClass().getResource("Grass.jpg");
+		URL urlPigeon = getClass().getResource("Pigeon.png");
+		
 		/*
 		 * Initialize image for bg
 		 */
-		String path = "C:\\Users\\adipe\\Documents\\GitHub\\PIGEON_SQUARE\\src\\grass.jpg";
-		File file = new File(path);
+		File fileGrass = new File(urlGrass.getPath());
 		bg = null;
 		try {
-			bg = ImageIO.read(file);
+			bg = ImageIO.read(fileGrass);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		// get food image
-		String pathFood = "C:\\Users\\adipe\\Documents\\GitHub\\PIGEON_SQUARE\\src\\FreshFood.png";
-		File fileFood = new File(pathFood);
+		File fileFood = new File(urlFreshFood.getPath());
 		foodImage = null;
 		try {
 			foodImage = ImageIO.read(fileFood);
@@ -80,9 +85,9 @@ public class Interface extends JFrame implements MouseListener {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		String pathStaleFood = "C:\\Users\\adipe\\Documents\\GitHub\\PIGEON_SQUARE\\src\\StaleFood.png";
-		File fileStaleFood = new File(pathStaleFood);
+
+		// get stale food image
+		File fileStaleFood = new File(urlStaleFood.getPath());
 		staleFoodImage = null;
 		try {
 			staleFoodImage = ImageIO.read(fileStaleFood);
@@ -92,8 +97,7 @@ public class Interface extends JFrame implements MouseListener {
 		}
 		
 		// get pigeon image
-		String pathPigeon = "C:\\Users\\adipe\\Documents\\GitHub\\PIGEON_SQUARE\\src\\pigeon.png";
-		File filePigeon = new File(pathPigeon);
+		File filePigeon = new File(urlPigeon.getPath());
 		pigeonImage = null;
 		try {
 			pigeonImage = ImageIO.read(filePigeon);

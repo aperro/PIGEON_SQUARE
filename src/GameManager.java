@@ -1,6 +1,7 @@
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class GameManager {
 
@@ -11,7 +12,9 @@ public class GameManager {
 	{
 		for(int i =0; i<size; i++) {
 
-			pigeonList.add(new Pigeon());
+			Pigeon p = new Pigeon();
+			p.gameManager = this;
+			pigeonList.add(p);
 		}
 	}
 
@@ -21,7 +24,6 @@ public class GameManager {
 		int yy = y-38;
 		if (xx < 0) xx += 9;
 		if (yy < 0) yy += 38;
-		System.out.println("Mouse Clicked at X: " + xx + " - Y: " + yy);
 		foodList.add(new Food((float) (10 + Math.random() * (15 - 10)), new Point(xx,yy)));
 
 		for(int i = 0; i<pigeonList.size(); i++) {
@@ -48,15 +50,19 @@ public class GameManager {
 	}
 
 	public void FoodEaten(Food foodEaten) {
-		
-		boolean iseaten = foodList.remove(foodEaten);
+		if (foodEaten.checkFreshness())
+		{
+			boolean iseaten = foodList.remove(foodEaten);
+		} else
+		{
+			System.out.println("Food not fresh anymore");
+		}
 		Food closestFood;
 		for (int i=0; i<pigeonList.size(); i++)
 		{
 			closestFood = FindClosestFood(pigeonList.get(i));
 			pigeonList.get(i).setClosestFood(closestFood);
 		}
-		System.out.println("is eaten = " + iseaten);
 		
 		
 	}
@@ -65,7 +71,8 @@ public class GameManager {
 	public void DetectFoodAndMovePigeon() {
 		for(int i = 0; i<pigeonList.size(); i++) {
 			
-			MovePigeonToFood(pigeonList.get(i));
+			pigeonList.get(i).Rush();
+			
 		}
 	}
 
@@ -91,33 +98,7 @@ public class GameManager {
 	}
 
 	public void MovePigeonToFood(Pigeon pigeon) {
-
-		if(pigeon.getClosestFood() != null) {
-			Food closestFood = pigeon.getClosestFood();
-			
-			int foodXposition = closestFood.getPosition().x;
-			int foodYposition = closestFood.getPosition().y;
-
-			int currentXPigeon = pigeon.getPosition().x;
-			int currentYPigeon = pigeon.getPosition().y;
-
-			if(Math.abs(currentXPigeon - foodXposition) >= 2 || Math.abs(currentYPigeon - foodYposition) >= 2) {
-				
-				if(Math.abs(currentYPigeon - foodYposition) >= 2) {
-					if(foodYposition > currentYPigeon) currentYPigeon+=2;
-					if(foodYposition < currentYPigeon) currentYPigeon-=2;
-				}
-				if( Math.abs(currentXPigeon - foodXposition) >= 2) {
-					if(foodXposition > currentXPigeon) currentXPigeon+=2;
-					if(foodXposition < currentXPigeon) currentXPigeon-=2;
-				}
-				pigeon.setPosition(new Point(currentXPigeon, currentYPigeon));
-			}else {
-				// DELETE FOOD
-				FoodEaten(closestFood);
-				//System.out.println("Pigeon Position is : x =" + currentXPigeon + " y = " + currentYPigeon);
-			}
-		}
+		
 	}
 
 	/*
