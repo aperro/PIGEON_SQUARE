@@ -42,11 +42,11 @@ public class GameManager {
 			pigeonList.get(i).setClosestFood(FindClosestFood(pigeonList.get(i)));
 		}
 	}
-/*
+	/*
 	public double GetDistanceBetweenPoint(Point firstPoint, Point secondPoint) {
 		return Math.sqrt((firstPoint.x-firstPoint.y)*(firstPoint.x-firstPoint.y) + (secondPoint.x-secondPoint.y)*(secondPoint.x-secondPoint.y));
 	}
-*/
+	 */
 	public void CheckFreshnessFoodList() {
 		for(int i =0; i < foodList.size(); i++) {
 			foodList.get(i).checkFreshness();
@@ -76,16 +76,16 @@ public class GameManager {
 			closestFood = FindClosestFood(pigeonList.get(i));
 			pigeonList.get(i).setClosestFood(closestFood);
 		}
-		
-		
+
+
 	}
 
 	// DO ALL THE JOB thanks to the next two methods
 	public void DetectFoodAndMovePigeon() {
 		for(int i = 0; i<pigeonList.size(); i++) {
-			
+
 			pigeonList.get(i).Rush();
-			
+
 		}
 	}
 
@@ -93,7 +93,7 @@ public class GameManager {
 		double MinDistance = 2000;
 		int indexMinDistance = 0;
 		boolean isFreshFoodNear = false;
-		
+
 		if(!foodList.isEmpty())
 		{
 			for(int i = 0; i<foodList.size(); i++) {
@@ -110,8 +110,11 @@ public class GameManager {
 		return null;
 	}
 
-	public void MovePigeonToFood(Pigeon pigeon) {
-		
+	// Méthode à implémenter pour changer le point de déplacement des pigeons
+	public void AffraidPigeon() {
+		for(int i = 0; i<pigeonList.size(); i++) {
+			pigeonList.get(i).Affraid();
+		}
 	}
 
 	/*

@@ -1,28 +1,29 @@
 import java.awt.Point;
 
 public class Pigeon {
-	
+
 	protected Boolean isAwake;
 	protected Boolean isAffraid;
 	public GameManager gameManager;
-	
+
 	protected RushToFood rush;
-	
+
 	protected Point position;
+	protected Point affraidNewPosition = null;
 	protected int speed = 60;
-	
+
 	protected Food closestFood = null;
-	
+
 	public Pigeon() {
 		super();
 		this.setPosition(new Point((int)(50 + Math.random() * (1230 - 50)), (int)(50 + Math.random() * (670 - 50))));
 		rush = new RushToFood(this, closestFood, gameManager, speed);
 	}
-	
+
 	public void Affraid() {
-		setPosition(new Point((int)(50 + Math.random() * (1230 - 50)), (int)(50 + Math.random() * (670 - 50))));
+		affraidNewPosition = (new Point((int)(50 + Math.random() * (1230 - 50)), (int)(50 + Math.random() * (670 - 50))));
 	}
-	
+
 	public Boolean getAwake() {
 		return isAwake;
 	}
@@ -66,5 +67,4 @@ public class Pigeon {
 			rush.start();
 		}
 	}
-
 }
