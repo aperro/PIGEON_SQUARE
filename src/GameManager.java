@@ -7,6 +7,7 @@ public class GameManager {
 
 	private List<Food> foodList = new ArrayList<Food>();
 	private List<Pigeon> pigeonList = new ArrayList<Pigeon>();
+	public float chanceToBeAfraid = 1;
 
 	public void CreatePigeonList (int ramier, int colombin, int biset)
 	{
@@ -82,9 +83,21 @@ public class GameManager {
 
 	// DO ALL THE JOB thanks to the next two methods
 	public void DetectFoodAndMovePigeon() {
+		
+		boolean isAfraid = false;
+		// 1% chance to be afraid if the mouse is inside the frame
+		if(Math.random()*100 <= chanceToBeAfraid) {
+			isAfraid = true;
+		}
+		
 		for(int i = 0; i<pigeonList.size(); i++) {
-
-			pigeonList.get(i).Rush();
+			if (isAfraid)
+			{
+				pigeonList.get(i).Afraid();
+			} else
+			{
+				pigeonList.get(i).Rush();
+			}
 
 		}
 	}
@@ -110,12 +123,6 @@ public class GameManager {
 		return null;
 	}
 
-	// Méthode à implémenter pour changer le point de déplacement des pigeons
-	public void AffraidPigeon() {
-		for(int i = 0; i<pigeonList.size(); i++) {
-			pigeonList.get(i).Affraid();
-		}
-	}
 
 	/*
 	 * Getter && Setter

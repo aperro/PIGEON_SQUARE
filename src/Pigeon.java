@@ -3,13 +3,12 @@ import java.awt.Point;
 public class Pigeon {
 
 	protected Boolean isAwake;
-	protected Boolean isAffraid;
 	public GameManager gameManager;
 
 	protected RushToFood rush;
 
 	protected Point position;
-	protected Point affraidNewPosition = null;
+	protected Point afraidNewPosition = null;
 	protected int speed = 60;
 
 	protected Food closestFood = null;
@@ -20,8 +19,10 @@ public class Pigeon {
 		rush = new RushToFood(this, closestFood, gameManager, speed);
 	}
 
-	public void Affraid() {
-		affraidNewPosition = (new Point((int)(50 + Math.random() * (1230 - 50)), (int)(50 + Math.random() * (670 - 50))));
+	public void Afraid() {
+		afraidNewPosition = new Point((int)(50 + Math.random() * (1230 - 50)), (int)(50 + Math.random() * (670 - 50)));
+		rush.closestFood = new Food(0.1f, afraidNewPosition);
+		
 	}
 
 	public Boolean getAwake() {
@@ -30,14 +31,7 @@ public class Pigeon {
 	public void setAwake(Boolean isAwake) {
 		this.isAwake = isAwake;
 	}
-
-	public Boolean getAffraid() {
-		return isAffraid;
-	}
-	public void setAffraid(Boolean isAffraid) {
-		this.isAffraid = isAffraid;
-	}
-
+	
 	public Point getPosition() {
 		return position;
 	}
@@ -61,6 +55,7 @@ public class Pigeon {
 		 * qui s'arretera lorsque le pigeon aura atteint et mangé toutes les Food
 		 * ou que toutes les Food restantes seront avariées (closestFood = null)
 		 */
+		
 		if (!rush.isAlive())
 		{
 			rush = new RushToFood(this, closestFood, gameManager, speed);

@@ -51,7 +51,6 @@ public class Interface extends JFrame implements MouseListener {
 
 		//Display the window.
 		this.setVisible(true);
-		//4. Size the frame.
 		this.setSize(1280, 720);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -190,13 +189,11 @@ public class Interface extends JFrame implements MouseListener {
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println("Mouse enter detected! Actual mouse position is: " + e.getX()+ "," + e.getY() + ".");
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println("Mouse exited detected! Actual mouse position is: " + e.getX()+ "," + e.getY() + ".");
 	}
 
 	@Override
@@ -215,9 +212,6 @@ public class Interface extends JFrame implements MouseListener {
 		gameManager_.DetectFoodAndMovePigeon();
 	}
 	
-	public void AffraidPigeon() {
-		gameManager_.AffraidPigeon();
-	}
 	
 	/*
 	 * Main
@@ -232,9 +226,6 @@ public class Interface extends JFrame implements MouseListener {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				if(Math.random()*1000 <= 10.0f) {
-					frame.AffraidPigeon();
-				}
 				frame.Show();
 				frame.ActualizePigeonState();
 			}
